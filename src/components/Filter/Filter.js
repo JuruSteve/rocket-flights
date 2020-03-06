@@ -38,7 +38,9 @@ const Filter = ({ launches, filterList }) => {
           <button onClick={() => failures(launches)}>Failure</button>
         </li>
         <li>
-          <button onClick={() => mostRecent(launches)}>Most Recent</button>
+          <button className="most-recent" onClick={() => mostRecent(launches)}>
+            Most Recent
+          </button>
         </li>
       </ul>
     </FilterOptions>
