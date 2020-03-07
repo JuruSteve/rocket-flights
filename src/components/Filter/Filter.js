@@ -1,49 +1,42 @@
-import React from "react"
+import React, { useReducer } from "react"
 import styled from "styled-components"
+import { LaunchConsumer } from "../../context/LaunchesContext"
+import { filterReducer } from "../../reducers/filterReducer"
 
-const Filter = ({ launches, filterList }) => {
-  const mostRecent = list => {
-    let newList = list
-      .filter(item => item.upcoming == false)
-      .sort((a, b) => {
-        let d1 = new Date(a.launch_date_utc)
-        let d2 = new Date(b.launch_date_utc)
-        return compareDates(d1, d2)
-      })
-    filterList(newList)
-  }
-  const compareDates = (d1, d2) => {
-    if (d1 > d2) {
-      return -1
-    } else if (d1 < d2) {
-      return 1
-    } else {
-      return 0
-    }
-  }
-
-  const failures = list => {
-    const newList = list.filter(item => item.launch_success !== true)
-    filterList(newList)
-  }
-
+// TODO: Figure out how to use the reducer with filter actions!!!!!!!!!!!!!!
+// +++++++++++++++++++++++++++++++++++++
+const Filter = () => {
+  const [state, dispatch] = useReducer(filterReducer, [])
   return (
-    <FilterOptions>
-      <p>Filters:</p>
-      <ul>
-        <li>
-          <button>Success</button>
-        </li>
-        <li>
-          <button onClick={() => failures(launches)}>Failure</button>
-        </li>
-        <li>
-          <button className="most-recent" onClick={() => mostRecent(launches)}>
-            Most Recent
-          </button>
-        </li>
-      </ul>
-    </FilterOptions>
+    <LaunchConsumer>
+      {({ launches, mostRecent, failure }) => (
+        <FilterOptions>
+          <p>Filters:</p>
+          <ul>
+            <li>
+              <button>Success</button>
+            </li>
+            <li>
+              <button
+                onClick={() => dispatch({ type: "FAILURE", payload: launches })}
+              >
+                Failure
+              </button>
+            </li>
+            <li>
+              <button
+                className="most-recent"
+                onClick={() =>
+                  dispatch({ type: "MOST_RECENT", payload: launches })
+                }
+              >
+                Most Recent
+              </button>
+            </li>
+          </ul>
+        </FilterOptions>
+      )}
+    </LaunchConsumer>
   )
 }
 

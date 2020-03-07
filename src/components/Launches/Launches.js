@@ -1,40 +1,27 @@
-import React, { useState, useEffect } from "react"
-import axios from "axios"
+import React from "react"
 import RocketLaunch from "./RocketLaunch"
 import styled from "styled-components"
 import Filter from "../Filter/Filter"
+import { LaunchProvider, LaunchConsumer } from "../../context/LaunchesContext"
 
 const Launches = () => {
-  const [allLaunches, setAllLaunches] = useState([])
-  const [filteredState, setFilteredState] = useState([])
-  const [isFiltered, setIsFiltered] = useState(false)
-  useEffect(() => {
-    //  api request to get list of launches
-    fetchLaunches()
-  }, [])
-  const fetchLaunches = async () => {
-    const launchResults = await axios.get(
-      "https://api.spacexdata.com/v3/launches"
-    )
-    console.log(launchResults)
-    setAllLaunches(launchResults.data)
-  }
   return (
-    <AllLaunches>
-      <h1>All Space X Rocket Launches</h1>
-      <Filter
-        launches={isFiltered ? filteredState : allLaunches}
-        filterList={isFiltered ? setFilteredState : setAllLaunches}
-      />
-      <ul className="launch-list">
-        {isFiltered
-          ? filteredState
-          : allLaunches &&
-            allLaunches.map((launch, i) => {
-              return <RocketLaunch launch={launch} key={i} />
-            })}
-      </ul>
-    </AllLaunches>
+    <LaunchProvider>
+      <LaunchConsumer>
+        {({ launches }) => (
+          <AllLaunches>
+            <h1>All Space X Rocket Launches</h1>
+            <Filter />
+            <ul className="launch-list">
+              {launches &&
+                launches.map((launch, i) => {
+                  return <RocketLaunch launch={launch} key={i} />
+                })}
+            </ul>
+          </AllLaunches>
+        )}
+      </LaunchConsumer>
+    </LaunchProvider>
   )
 }
 
