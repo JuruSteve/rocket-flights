@@ -1,37 +1,37 @@
-export const filterReducer = (state, action)=>{
-    const compareDates = (d1, d2) => {
-        if (d1 > d2) {
-          return -1
-        } else if (d1 < d2) {
-          return 1
-        } else {
-          return 0
+import moment from "moment"
+
+const filterLaunches = launchList => {
+  return launchList.reduce(
+    (acc, curr) => {
+      // Most recent launches
+      if (!curr.upcoming) {
+        if (moment(curr.launch_date_utc).isBefore(moment())) {
+          acc.mostRecent.push(curr)
         }
       }
-    switch (action.type) {
-        case "MOST_RECENT":
-            return {
-                ...state,
-                launches.filter(item => item.upcoming == false)
-                .sort((a, b) => {
-                  let d1 = new Date(a.launch_date_utc)
-                  let d2 = new Date(b.launch_date_utc)
-                  return compareDates(d1, d2)
-                })
-            };
-        case "FAILURE":
-            return {
-                ...state,
-                launches.filter(item => item.launch_success !== false)
-                .sort((a, b) => {
-                  let d1 = new Date(a.launch_date_utc)
-                  let d2 = new Date(b.launch_date_utc)
-                  return compareDates(d1, d2)
-                })
-            }
-            break;
-    
-        default:
-            break;
-    }
+      // // Failed launches
+      if (!curr.upcoming && !curr.launch_success) acc.failure.push(curr)
+      // // Successful launches
+      if (!curr.upcoming && curr.launch_success) acc.success.push(curr)
+      return acc
+    },
+    { mostRecent: [], failure: [], success: [] }
+  )
+}
+
+export const filterReducer = (state, action) => {
+  console.log(state)
+  switch (action.type) {
+    case "MOST_RECENT":
+      //   const filtered = filterLaunches([...state])
+      //   console.log(filtered)
+      //   return
+      break
+    case "FAILURE":
+      return {
+        ...state,
+      }
+    default:
+      break
+  }
 }

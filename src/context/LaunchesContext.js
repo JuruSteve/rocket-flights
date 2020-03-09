@@ -27,7 +27,7 @@ const LaunchProvider = props => {
   const filterByMostRecent = (launches, filter) => {
     if (filter) {
       launches
-        .filter(item => item.upcoming == false)
+        .filter(item => item.upcoming === false)
         .sort((a, b) => {
           let d1 = new Date(a.launch_date_utc)
           let d2 = new Date(b.launch_date_utc)
@@ -52,8 +52,6 @@ const LaunchProvider = props => {
     <Provider
       value={{
         launches: [...allLaunches],
-        mostRecent: filterByMostRecent,
-        failure: filterByFailed,
       }}
     >
       {props.children}

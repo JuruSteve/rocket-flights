@@ -5,11 +5,11 @@ import { filterReducer } from "../../reducers/filterReducer"
 
 // TODO: Figure out how to use the reducer with filter actions!!!!!!!!!!!!!!
 // +++++++++++++++++++++++++++++++++++++
-const Filter = () => {
-  const [state, dispatch] = useReducer(filterReducer, [])
+const Filter = ({ launches }) => {
+  const [state, dispatch] = useReducer(filterReducer, launches)
   return (
     <LaunchConsumer>
-      {({ launches, mostRecent, failure }) => (
+      {({ launches }) => (
         <FilterOptions>
           <p>Filters:</p>
           <ul>
@@ -18,7 +18,7 @@ const Filter = () => {
             </li>
             <li>
               <button
-                onClick={() => dispatch({ type: "FAILURE", payload: launches })}
+              // onClick={() => dispatch({ type: "FAILURE", payload: launches })}
               >
                 Failure
               </button>
@@ -26,9 +26,7 @@ const Filter = () => {
             <li>
               <button
                 className="most-recent"
-                onClick={() =>
-                  dispatch({ type: "MOST_RECENT", payload: launches })
-                }
+                onClick={() => dispatch({ type: "MOST_RECENT" })}
               >
                 Most Recent
               </button>

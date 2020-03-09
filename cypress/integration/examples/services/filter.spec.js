@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-import { baseURL } from "../../../../cypress"
+// /// <reference types="Cypress" />
+// import { baseURL } from "../../../../cypress"
 
 context("Filter launches", () => {
   it("Filters by most recent", () => {
@@ -9,9 +9,7 @@ context("Filter launches", () => {
       .then($list => {
         cy.get(".most-recent").click()
         // expect($list).to.contain
-        expect($list)
-          .to.have.ordered.members([1, 2])
-          .but.not.have.ordered.members([2, 1])
+        // expect($list).decrease()
       })
   })
 })

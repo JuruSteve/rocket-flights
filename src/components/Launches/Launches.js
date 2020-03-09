@@ -11,7 +11,7 @@ const Launches = () => {
         {({ launches }) => (
           <AllLaunches>
             <h1>All Space X Rocket Launches</h1>
-            <Filter />
+            <Filter launches={launches} />
             <ul className="launch-list">
               {launches &&
                 launches.map((launch, i) => {
