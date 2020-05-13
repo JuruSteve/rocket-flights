@@ -1,45 +1,67 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useReducer } from "react"
 import RocketLaunch from "./RocketLaunch"
 import styled from "styled-components"
+import axios from "axios"
+import filterReducer from "../../reducers/filterReducer"
 import Filter from "../Filter/Filter"
-import { LaunchProvider, LaunchConsumer } from "../../context/LaunchesContext"
-import useLaunchData from "../../hooks/useLaunchData"
+import {
+  FILTER_FAILURES,
+  FILTER_MOST_RECENT,
+  FILTER_SUCCESSES,
+  FETCH_DATA,
+} from "../../actions"
 
+const initialState = {
+  launches: [],
+  loading: true,
+}
 const Launches = () => {
-  const { state, filters, fetchLaunches } = useLaunchData()
+  const [state, dispatch] = useReducer(filterReducer, initialState)
+
   useEffect(() => {
     fetchLaunches()
   }, [])
 
+  const fetchLaunches = async () => {
+    const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
+    if (data.length) {
+      console.log(data)
+      dispatch({ type: FETCH_DATA, payload: { launches: data } })
+    }
+  }
+
+  const filterByMostRecent = () => {
+    dispatch({
+      type: FILTER_MOST_RECENT,
+    })
+  }
+  const filterByFailure = () => {
+    dispatch({
+      type: FILTER_FAILURES,
+    })
+  }
+  const filterBySuccess = () => {
+    dispatch({
+      type: FILTER_SUCCESSES,
+      //  payload: { launches: state.launches }
+    })
+  }
+
+  console.log("state", state)
   return (
     <AllLaunches>
-      <Filter filters={filters} />
+      <Filter
+        filters={{ filterBySuccess, filterByMostRecent, filterByFailure }}
+      />
       <ul className="launch-list">
-        {state.launches.length &&
+        {state.loading && <h1>Loading...</h1>}
+        {state.launches.length > 0 &&
           state.launches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })}
       </ul>
     </AllLaunches>
   )
-  // return (
-  //   <LaunchProvider>
-  //     <LaunchConsumer>
-  //       {({ launches }) => (
-  //         <AllLaunches>
-  //           <h1>All Space X Rocket Launches</h1>
-  //           <Filter launches={launches} />
-  //           <ul className="launch-list">
-  //             {launches &&
-  //               launches.map((launch, i) => {
-  //                 return <RocketLaunch launch={launch} key={i} />
-  //               })}
-  //           </ul>
-  //         </AllLaunches>
-  //       )}
-  //     </LaunchConsumer>
-  //   </LaunchProvider>
-  // )
 }
 
 const AllLaunches = styled.section`
