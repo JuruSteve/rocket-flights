@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import { navigate } from "@reach/router"
+import { Link } from "gatsby"
 
 const FlightDetails = ({ location }) => {
   const flight = location.state && location.state.flight
@@ -8,7 +8,8 @@ const FlightDetails = ({ location }) => {
     <div>
       {flight && (
         <MissionSummary>
-          <button onClick={() => navigate("/")}>Back</button>
+          {/* <button onClick={() => navigate("/")}>Back</button> */}
+          <Link to="/">Back</Link>
           <h1>{flight.mission_name}</h1>
           <h3>
             <em>{flight.details}</em>
