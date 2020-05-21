@@ -3,11 +3,12 @@ import RocketLaunch from "./RocketLaunch"
 import styled from "styled-components"
 import axios from "axios"
 import filterReducer from "../../reducers/filterReducer"
-import Filter from "../Filter/Filter"
+import Loader from "react-loader"
+
 import {
-  FILTER_FAILURES,
-  FILTER_MOST_RECENT,
-  FILTER_SUCCESSES,
+  // FILTER_FAILURES,
+  // FILTER_MOST_RECENT,
+  // FILTER_SUCCESSES,
   FETCH_DATA,
 } from "../../actions"
 
@@ -30,31 +31,27 @@ const Launches = () => {
     }
   }
 
-  const filterByMostRecent = () => {
-    dispatch({
-      type: FILTER_MOST_RECENT,
-    })
-  }
-  const filterByFailure = () => {
-    dispatch({
-      type: FILTER_FAILURES,
-    })
-  }
-  const filterBySuccess = () => {
-    dispatch({
-      type: FILTER_SUCCESSES,
-      //  payload: { launches: state.launches }
-    })
-  }
+  // const filterByMostRecent = () => {
+  //   dispatch({
+  //     type: FILTER_MOST_RECENT,
+  //   })
+  // }
+  // const filterByFailure = () => {
+  //   dispatch({
+  //     type: FILTER_FAILURES,
+  //   })
+  // }
+  // const filterBySuccess = () => {
+  //   dispatch({
+  //     type: FILTER_SUCCESSES,
+  //   })
+  // }
 
   console.log("state", state)
   return (
     <AllLaunches>
-      <Filter
-        filters={{ filterBySuccess, filterByMostRecent, filterByFailure }}
-      />
       <ul className="launch-list">
-        {state.loading && <h1>Loading...</h1>}
+        {state.loading && <Loader />}
         {state.launches.length > 0 &&
           state.launches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
@@ -75,6 +72,10 @@ const AllLaunches = styled.section`
   .launch-list {
     margin: 0 auto;
     list-style-type: none;
+  }
+  ul li a {
+    text-decoration: none;
+    color: black;
   }
 `
 
