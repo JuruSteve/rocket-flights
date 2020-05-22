@@ -26,7 +26,6 @@ const Launches = () => {
   const fetchLaunches = async () => {
     const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
     if (data.length) {
-      console.log(data)
       dispatch({ type: FETCH_DATA, payload: { launches: data } })
     }
   }
@@ -47,7 +46,6 @@ const Launches = () => {
   //   })
   // }
 
-  console.log("state", state)
   return (
     <AllLaunches>
       <ul className="launch-list">
