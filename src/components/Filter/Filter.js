@@ -1,40 +1,27 @@
-import React, { useReducer } from "react"
+import React from "react"
 import styled from "styled-components"
-import { LaunchConsumer } from "../../context/LaunchesContext"
-import { filterReducer } from "../../reducers/filterReducer"
 
-// TODO: Figure out how to use the reducer with filter actions!!!!!!!!!!!!!!
-// +++++++++++++++++++++++++++++++++++++
-const Filter = ({ launches }) => {
-  const [state, dispatch] = useReducer(filterReducer, launches)
+const Filter = ({ filters }) => {
   return (
-    <LaunchConsumer>
-      {({ launches }) => (
-        <FilterOptions>
-          <p>Filters:</p>
-          <ul>
-            <li>
-              <button>Success</button>
-            </li>
-            <li>
-              <button
-              // onClick={() => dispatch({ type: "FAILURE", payload: launches })}
-              >
-                Failure
-              </button>
-            </li>
-            <li>
-              <button
-                className="most-recent"
-                onClick={() => dispatch({ type: "MOST_RECENT" })}
-              >
-                Most Recent
-              </button>
-            </li>
-          </ul>
-        </FilterOptions>
-      )}
-    </LaunchConsumer>
+    <FilterOptions>
+      <p>Filters:</p>
+      <ul>
+        <li>
+          <button onClick={filters.filterBySuccess}>Success</button>
+        </li>
+        <li>
+          <button onClick={() => filters.filterByFailure()}>Failure</button>
+        </li>
+        <li>
+          <button
+            className="most-recent"
+            onClick={() => filters.filterByMostRecent()}
+          >
+            Most Recent
+          </button>
+        </li>
+      </ul>
+    </FilterOptions>
   )
 }
 
