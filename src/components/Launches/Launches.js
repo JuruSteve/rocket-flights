@@ -6,24 +6,24 @@ import RocketLaunch from "./RocketLaunch"
 import useLaunchData from "../../hooks/useLaunchData"
 
 const Launches = () => {
-  const { state, fetchLaunches, loading, filters } = useLaunchData()
+  const { filteredLaunches, fetchLaunches, loading, filters } = useLaunchData()
 
   useEffect(() => {
     fetchLaunches()
-  }, [])
-  console.log("state", state)
+  }, [fetchLaunches])
+  console.log("filteredLaunches", filteredLaunches)
   return (
     <AllLaunches>
       <Filter filters={filters} />
-      {/* <ul className="launch-list">
-        {state.filteredLaunches.length > 0 ? (
-          state.filteredLaunches.map((launch, i) => {
+      <ul className="launch-list">
+        {filteredLaunches.length > 0 ? (
+          filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
         ) : (
           <Loader loaded={loading} />
         )}
-      </ul> */}
+      </ul>
     </AllLaunches>
   )
 }
