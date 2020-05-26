@@ -40,7 +40,9 @@ const Launches = () => {
     <AllLaunches>
       <Filter filters={filters} />
       <ul className="launch-list">
-        {state.loading && <Loader loaded={state.loading} />}
+        {typeof state !== "undefined" && state.loading && (
+          <Loader loaded={state.loading} />
+        )}
         {state.filteredLaunches.length > 0 &&
           state.filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
