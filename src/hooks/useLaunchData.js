@@ -125,11 +125,17 @@ const useLaunchData = () => {
 
   // useCallback to prevent uncessary renders based on callback function identity
   const fetchLaunches = useCallback(async () => {
-    const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
-    dispatch({
-      type: FETCH_DATA,
-      payload: { launches: data, loading: false },
-    })
+    const res = await axios
+      .get("https://api.spacexdata.com/v3/launches")
+      .catch(err => {
+        console.log("Error fetching launches", err)
+      })
+    if (res && res.data) {
+      dispatch({
+        type: FETCH_DATA,
+        payload: { launches: res.data, loading: false },
+      })
+    }
   }, [dispatch])
 
   return {
