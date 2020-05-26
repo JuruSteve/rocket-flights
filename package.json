@@ -1,9 +1,9 @@
 {
-  "name": "space-x-rocket-launches",
+  "name": "gatsby-starter-default",
   "private": true,
-  "description": "Visualize frequency, success, and failure of Space X's rocket launch missions.",
+  "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
-  "author": "Juru Steve Mugenzi <jstevemu17@gmail.com>",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "axios": "^0.19.2",
     "babel-plugin-styled-components": "^1.10.7",
