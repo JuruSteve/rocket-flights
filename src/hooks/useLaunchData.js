@@ -13,7 +13,7 @@ const FILTER_SUCCESSES = "filter_successes"
 const FILTER_MOST_RECENT = "filter_most_recent"
 const FILTER_ALL = "filter_all"
 
-const launchesContext = createContext([])
+const LaunchesContext = createContext()
 
 const InitialState = {
   launches: [],
@@ -88,9 +88,9 @@ const launchReducer = (state, { type, payload }) => {
 }
 
 const LaunchesContextProvider = ({ children }) => (
-  <launchesContext.Provider value={useReducer(launchReducer, InitialState)}>
+  <LaunchesContext.Provider value={useReducer(launchReducer, InitialState)}>
     {children}
-  </launchesContext.Provider>
+  </LaunchesContext.Provider>
 )
 
 export const wrapRootElement = ({ element }) => (
@@ -98,7 +98,7 @@ export const wrapRootElement = ({ element }) => (
 )
 
 const useLaunchData = () => {
-  const [state, dispatch] = useContext(launchesContext)
+  const [state, dispatch] = useContext(LaunchesContext)
   const filterByMostRecent = () => {
     dispatch({
       type: FILTER_MOST_RECENT,
