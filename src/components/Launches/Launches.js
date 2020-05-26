@@ -10,25 +10,21 @@ const Launches = () => {
 
   useEffect(() => {
     fetchLaunches()
-    console.log("useEff", filteredLaunches.length)
   }, [fetchLaunches])
-  console.log("filteredLaunches before render", filteredLaunches)
-  const newArray = [1, 2, 3, 4, 5, 6]
+
   return (
     <AllLaunches>
       <Filter filters={filters} />
-      <pre>{JSON.stringify(filteredLaunches, null, 2)}</pre>
       <ul className="launch-list">
-        {newArray.length > 0 &&
-          newArray.map((item, i) => <li key={i}>{item}</li>)}
-        {/* {console.log("filteredLaunches in render", filteredLaunches)}
-        {typeof filteredLaunches === "object" && filteredLaunches.length > 0 ? (
+        {console.log("filteredLaunches in render", filteredLaunches)}
+        {typeof filteredLaunches !== "undefined" &&
+        filteredLaunches.length > 0 ? (
           filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
         ) : (
           <Loader loaded={loading} />
-        )} */}
+        )}
       </ul>
     </AllLaunches>
   )

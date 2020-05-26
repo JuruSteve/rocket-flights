@@ -131,7 +131,6 @@ const useLaunchData = () => {
         console.log("Error fetching launches", err)
       })
     if (res && res.data) {
-      console.log("fetched launches in hook", res.data.length)
       dispatch({
         type: FETCH_DATA,
         payload: { launches: res.data, loading: false },
