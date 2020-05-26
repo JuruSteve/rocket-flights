@@ -13,18 +13,21 @@ const Launches = () => {
     console.log("useEff", filteredLaunches.length)
   }, [fetchLaunches])
   console.log("filteredLaunches before render", filteredLaunches)
+  const newArray = [1, 2, 3, 4, 5, 6]
   return (
     <AllLaunches>
       <Filter filters={filters} />
       <ul className="launch-list">
-        {console.log("filteredLaunches in render", filteredLaunches)}
+        {newArray.length > 0 &&
+          newArray.map((item, i) => <li key={i}>{item}</li>)}
+        {/* {console.log("filteredLaunches in render", filteredLaunches)}
         {typeof filteredLaunches === "object" && filteredLaunches.length > 0 ? (
           filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
         ) : (
           <Loader loaded={loading} />
-        )}
+        )} */}
       </ul>
     </AllLaunches>
   )
