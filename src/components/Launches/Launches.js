@@ -10,12 +10,14 @@ const Launches = () => {
 
   useEffect(() => {
     fetchLaunches()
+    console.log("useEff", filteredLaunches.length)
   }, [fetchLaunches])
-  console.log("filteredLaunches", filteredLaunches)
+  console.log("filteredLaunches before render", filteredLaunches)
   return (
     <AllLaunches>
       <Filter filters={filters} />
       <ul className="launch-list">
+        {console.log("filteredLaunches in render", filteredLaunches)}
         {typeof filteredLaunches === "object" && filteredLaunches.length > 0 ? (
           filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
