@@ -16,7 +16,7 @@ const Launches = () => {
     <AllLaunches>
       <Filter filters={filters} />
       <ul className="launch-list">
-        {filteredLaunches.length > 0 ? (
+        {typeof filteredLaunches === "object" && filteredLaunches.length > 0 ? (
           filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
