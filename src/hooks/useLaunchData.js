@@ -79,7 +79,7 @@ const launchReducer = (state = InitialState, { type, payload }) => {
         filteredLaunches: payload.launches,
       }
     default:
-      return InitialState
+      return state
   }
 }
 
