@@ -1,58 +1,24 @@
-import React, { useEffect, useReducer } from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
-import axios from "axios"
 import Loader from "react-loader"
+import Filter from "../Filter/Filter"
 import RocketLaunch from "./RocketLaunch"
-import filterReducer from "../../reducers/filterReducer"
 import useLaunchData from "../../hooks/useLaunchData"
-import {
-  // FILTER_FAILURES,
-  // FILTER_MOST_RECENT,
-  // FILTER_SUCCESSES,
-  FETCH_DATA,
-} from "../../actions"
 
-const initialState = {
-  launches: [],
-  loading: true,
-}
 const Launches = () => {
-  // const [state, dispatch] = useReducer(filterReducer, initialState)
-  const { state, fetchLaunches, loading } = useLaunchData()
-  console.log("Launches Custom Hook", state)
+  const { state, fetchLaunches, loading, filters } = useLaunchData()
 
   useEffect(() => {
     fetchLaunches()
-  }, [])
-
-  // const fetchLaunches = async () => {
-  //   const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
-  //   if (data.length) {
-  //     dispatch({ type: FETCH_DATA, payload: { launches: data } })
-  //   }
-  // }
-
-  // const filterByMostRecent = () => {
-  //   dispatch({
-  //     type: FILTER_MOST_RECENT,
-  //   })
-  // }
-  // const filterByFailure = () => {
-  //   dispatch({
-  //     type: FILTER_FAILURES,
-  //   })
-  // }
-  // const filterBySuccess = () => {
-  //   dispatch({
-  //     type: FILTER_SUCCESSES,
-  //   })
-  // }
+    console.log("rendered")
+  }, [fetchLaunches])
 
   return (
     <AllLaunches>
+      <Filter filters={filters} />
       <ul className="launch-list">
-        {state.launches.length > 0 ? (
-          state.launches.map((launch, i) => {
+        {state.filteredLaunches.length > 0 ? (
+          state.filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
         ) : (

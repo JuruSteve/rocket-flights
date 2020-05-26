@@ -7,6 +7,9 @@ const Filter = ({ filters }) => {
       <p>Filters:</p>
       <ul>
         <li>
+          <button onClick={filters.filterByAll}>All</button>
+        </li>
+        <li>
           <button onClick={filters.filterBySuccess}>Success</button>
         </li>
         <li>
