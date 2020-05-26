@@ -10,14 +10,13 @@ const Launches = () => {
 
   useEffect(() => {
     fetchLaunches()
-    console.log("rendered")
   }, [fetchLaunches])
 
   return (
     <AllLaunches>
       <Filter filters={filters} />
       <ul className="launch-list">
-        {state.filteredLaunches.length > 0 ? (
+        {state && state.filteredLaunches.length > 0 ? (
           state.filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
