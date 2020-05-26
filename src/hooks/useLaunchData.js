@@ -13,7 +13,7 @@ const FILTER_SUCCESSES = "filter_successes"
 const FILTER_MOST_RECENT = "filter_most_recent"
 const FILTER_ALL = "filter_all"
 
-const LaunchesContext = createContext()
+const LaunchesContext = createContext([])
 
 const InitialState = {
   launches: [],
