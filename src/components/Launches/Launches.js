@@ -1,10 +1,10 @@
 import React, { useEffect, useReducer } from "react"
-import RocketLaunch from "./RocketLaunch"
 import styled from "styled-components"
 import axios from "axios"
-import filterReducer from "../../reducers/filterReducer"
 import Loader from "react-loader"
-
+import RocketLaunch from "./RocketLaunch"
+import filterReducer from "../../reducers/filterReducer"
+import useLaunchData from "../../hooks/useLaunchData"
 import {
   // FILTER_FAILURES,
   // FILTER_MOST_RECENT,
@@ -17,18 +17,20 @@ const initialState = {
   loading: true,
 }
 const Launches = () => {
-  const [state, dispatch] = useReducer(filterReducer, initialState)
+  // const [state, dispatch] = useReducer(filterReducer, initialState)
+  const { state, fetchLaunches, loading } = useLaunchData()
+  console.log("Launches Custom Hook", state)
 
   useEffect(() => {
     fetchLaunches()
   }, [])
 
-  const fetchLaunches = async () => {
-    const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
-    if (data.length) {
-      dispatch({ type: FETCH_DATA, payload: { launches: data } })
-    }
-  }
+  // const fetchLaunches = async () => {
+  //   const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
+  //   if (data.length) {
+  //     dispatch({ type: FETCH_DATA, payload: { launches: data } })
+  //   }
+  // }
 
   // const filterByMostRecent = () => {
   //   dispatch({
@@ -49,11 +51,13 @@ const Launches = () => {
   return (
     <AllLaunches>
       <ul className="launch-list">
-        {state.loading && <Loader />}
-        {state.launches.length > 0 &&
+        {state.launches.length > 0 ? (
           state.launches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
-          })}
+          })
+        ) : (
+          <Loader loaded={loading} />
+        )}
       </ul>
     </AllLaunches>
   )
