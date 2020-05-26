@@ -11,7 +11,7 @@ const Launches = () => {
   useEffect(() => {
     fetchLaunches()
   }, [fetchLaunches])
-
+  console.log("state", state)
   return (
     <AllLaunches>
       <Filter filters={filters} />

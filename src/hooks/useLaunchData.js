@@ -130,7 +130,6 @@ const useLaunchData = () => {
       type: FETCH_DATA,
       payload: { launches: data, loading: false },
     })
-    return
   }, [dispatch])
 
   return {
