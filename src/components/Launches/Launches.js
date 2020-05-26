@@ -17,6 +17,7 @@ const Launches = () => {
   return (
     <AllLaunches>
       <Filter filters={filters} />
+      <pre>{JSON.stringify(filteredLaunches, null, 2)}</pre>
       <ul className="launch-list">
         {newArray.length > 0 &&
           newArray.map((item, i) => <li key={i}>{item}</li>)}
