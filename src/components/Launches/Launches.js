@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import Loader from "react-loader"
 import Filter from "../Filter/Filter"
@@ -7,19 +7,22 @@ import useLaunchData from "../../hooks/useLaunchData"
 
 const Launches = () => {
   const { filteredLaunches, fetchLaunches, loading, filters } = useLaunchData()
-
+  const [state, setState] = useState([])
   useEffect(() => {
     fetchLaunches()
   }, [fetchLaunches])
+
+  useEffect(() => {
+    setState(filteredLaunches)
+  }, [filteredLaunches])
 
   return (
     <AllLaunches>
       <Filter filters={filters} />
       <ul className="launch-list">
         {console.log("filteredLaunches in render", filteredLaunches)}
-        {typeof filteredLaunches !== "undefined" &&
-        filteredLaunches.length > 0 ? (
-          filteredLaunches.map((launch, i) => {
+        {state && state.length > 0 ? (
+          state.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
         ) : (
