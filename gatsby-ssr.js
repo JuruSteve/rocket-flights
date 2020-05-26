@@ -1,6 +1,7 @@
-const React = require("react")
-const Layout = require("./src/components/layout").default
+export { wrapRootElement } from "./src/hooks/useLaunchData"
+// const React = require("react")
+// const Layout = require("./src/components/layout").default
 
-exports.wrapPageElement = ({ element, props }) => (
-  <Layout {...props}>{element}</Layout>
-)
+// exports.wrapPageElement = ({ element, props }) => (
+//   <Layout {...props}>{element}</Layout>
+// )
