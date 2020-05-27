@@ -21,7 +21,7 @@ const Launches = () => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })
         ) : (
-          <Loader loaded={state.loading} />
+          <Loader loaded={typeof state !== "undefined" && state.loading} />
         )}
       </ul>
     </AllLaunches>
