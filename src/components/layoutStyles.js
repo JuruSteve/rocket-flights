@@ -1,3 +1,6 @@
+import { createGlobalStyle } from "styled-components"
+
+export const GlobalStyles = createGlobalStyle`
 html {
   font-family: sans-serif;
   /* font-family: "Noto Sans KR", sans-serif; */
@@ -621,3 +624,4 @@ pre tt:after {
     font-size: 100%;
   }
 }
+`
