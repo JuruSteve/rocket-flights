@@ -18,7 +18,7 @@ const LaunchesContext = createContext([])
 const InitialState = {
   launches: [],
   filteredLaunches: [],
-  loading: true,
+  loading: false,
 }
 
 const compareDates = (d1, d2) => {
@@ -63,15 +63,18 @@ const launchReducer = (state, { type, payload }) => {
         filteredLaunches: failureState,
       }
     case FILTER_MOST_RECENT:
+      const recent =
+        state.launches.length &&
+        state.launches
+          .filter(item => item.upcoming !== true)
+          .sort((a, b) => {
+            let d1 = new Date(a.launch_date_utc)
+            let d2 = new Date(b.launch_date_utc)
+            return compareDates(d1, d2)
+          })
       return {
         ...state,
-        filteredLaunches: [
-          ...state.launches.filter(item => item.upcoming !== true),
-        ].sort((a, b) => {
-          let d1 = new Date(a.launch_date_utc)
-          let d2 = new Date(b.launch_date_utc)
-          return compareDates(d1, d2)
-        }),
+        filteredLaunches: recent,
       }
     case FILTER_ALL:
       return {
@@ -123,7 +126,7 @@ const useLaunchData = () => {
     const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
     dispatch({
       type: FETCH_DATA,
-      payload: { launches: data, loading: false },
+      payload: { launches: data, loading: true },
     })
   }, [dispatch])
 

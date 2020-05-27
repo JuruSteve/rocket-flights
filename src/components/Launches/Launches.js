@@ -10,44 +10,19 @@ const Launches = () => {
 
   useEffect(() => {
     fetchLaunches()
-    console.log("rendered")
   }, [fetchLaunches])
-
-  // const fetchLaunches = async () => {
-  //   const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
-  //   if (data.length) {
-  //     dispatch({ type: FETCH_DATA, payload: { launches: data } })
-  //   }
-  // }
-
-  // const filterByMostRecent = () => {
-  //   dispatch({
-  //     type: FILTER_MOST_RECENT,
-  //   })
-  // }
-  // const filterByFailure = () => {
-  //   dispatch({
-  //     type: FILTER_FAILURES,
-  //   })
-  // }
-  // const filterBySuccess = () => {
-  //   dispatch({
-  //     type: FILTER_SUCCESSES,
-  //   })
-  // }
 
   return (
     <AllLaunches>
       <Filter filters={filters} />
       <ul className="launch-list">
-        {typeof state !== "undefined" && state.loading && (
-          <Loader loaded={state.loading} />
-        )}
-        {typeof state !== "undefined" &&
-          state.filteredLaunches.length > 0 &&
+        {typeof state !== "undefined" && state.filteredLaunches.length > 0 ? (
           state.filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
-          })}
+          })
+        ) : (
+          <Loader loaded={state.loading} />
+        )}
       </ul>
     </AllLaunches>
   )
