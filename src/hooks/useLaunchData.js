@@ -41,20 +41,17 @@ const launchReducer = (state, { type, payload }) => {
         loading: payload.loading,
       }
     case FILTER_SUCCESSES:
-      console.log("SS______", state)
       const successState =
         state.launches.length &&
         state.launches.filter(
           launch =>
             launch.launch_success !== false && launch.launch_success !== null
         )
-      console.log("====success", successState)
       return {
         ...state,
         filteredLaunches: successState,
       }
     case FILTER_FAILURES:
-      console.log("FF______", state.launches, "\n ||||")
       const failureState =
         state.launches.length &&
         state.launches.filter(
@@ -66,7 +63,6 @@ const launchReducer = (state, { type, payload }) => {
         filteredLaunches: failureState,
       }
     case FILTER_MOST_RECENT:
-      console.log("MR______", payload)
       return {
         ...state,
         filteredLaunches: [
@@ -83,7 +79,7 @@ const launchReducer = (state, { type, payload }) => {
         filteredLaunches: payload.launches,
       }
     default:
-      return state
+      return InitialState
   }
 }
 
