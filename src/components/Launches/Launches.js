@@ -43,7 +43,8 @@ const Launches = () => {
         {typeof state !== "undefined" && state.loading && (
           <Loader loaded={state.loading} />
         )}
-        {state.filteredLaunches.length > 0 &&
+        {typeof state !== "undefined" &&
+          state.filteredLaunches.length > 0 &&
           state.filteredLaunches.map((launch, i) => {
             return <RocketLaunch key={i} launch={launch}></RocketLaunch>
           })}
