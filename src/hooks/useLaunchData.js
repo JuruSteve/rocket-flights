@@ -1,4 +1,9 @@
-import React, { useContext, useReducer, createContext } from "react"
+import React, {
+  useContext,
+  useReducer,
+  createContext,
+  useCallback,
+} from "react"
 import axios from "axios"
 
 // action types
@@ -6,14 +11,14 @@ const FETCH_DATA = "fetch_data"
 const FILTER_FAILURES = "filter_failures"
 const FILTER_SUCCESSES = "filter_successes"
 const FILTER_MOST_RECENT = "filter_most_recent"
+const FILTER_ALL = "filter_all"
 
-const launchesContext = createContext([])
+const LaunchesContext = createContext([])
 
 const InitialState = {
   launches: [],
-  failed: [],
-  success: [],
-  mostRecent: [],
+  filteredLaunches: [],
+  loading: false,
 }
 
 const compareDates = (d1, d2) => {
@@ -32,22 +37,21 @@ const launchReducer = (state, { type, payload }) => {
       return {
         ...state,
         launches: payload.launches,
+        filteredLaunches: payload.launches,
+        loading: payload.loading,
       }
     case FILTER_SUCCESSES:
-      console.log("SS______", state)
       const successState =
         state.launches.length &&
         state.launches.filter(
           launch =>
             launch.launch_success !== false && launch.launch_success !== null
         )
-      console.log("====success", successState)
       return {
         ...state,
-        launches: successState,
+        filteredLaunches: successState,
       }
     case FILTER_FAILURES:
-      console.log("FF______", state.launches, "\n ||||")
       const failureState =
         state.launches.length &&
         state.launches.filter(
@@ -56,19 +60,26 @@ const launchReducer = (state, { type, payload }) => {
         )
       return {
         ...state,
-        launches: failureState,
+        filteredLaunches: failureState,
       }
     case FILTER_MOST_RECENT:
-      console.log("MR______", payload)
+      const recent =
+        state.launches.length &&
+        state.launches
+          .filter(item => item.upcoming !== true)
+          .sort((a, b) => {
+            let d1 = new Date(a.launch_date_utc)
+            let d2 = new Date(b.launch_date_utc)
+            return compareDates(d1, d2)
+          })
       return {
         ...state,
-        launches: [
-          ...state.launches.filter(item => item.upcoming !== true),
-        ].sort((a, b) => {
-          let d1 = new Date(a.launch_date_utc)
-          let d2 = new Date(b.launch_date_utc)
-          return compareDates(d1, d2)
-        }),
+        filteredLaunches: recent,
+      }
+    case FILTER_ALL:
+      return {
+        ...state,
+        filteredLaunches: payload.launches,
       }
     default:
       return InitialState
@@ -76,9 +87,9 @@ const launchReducer = (state, { type, payload }) => {
 }
 
 const LaunchesContextProvider = ({ children }) => (
-  <launchesContext.Provider value={useReducer(launchReducer, InitialState)}>
+  <LaunchesContext.Provider value={useReducer(launchReducer, InitialState)}>
     {children}
-  </launchesContext.Provider>
+  </LaunchesContext.Provider>
 )
 
 export const wrapRootElement = ({ element }) => (
@@ -86,8 +97,7 @@ export const wrapRootElement = ({ element }) => (
 )
 
 const useLaunchData = () => {
-  const [state, dispatch] = useContext(launchesContext)
-  console.log("useLD-1-1-1-1", state.launches)
+  const [state, dispatch] = useContext(LaunchesContext)
   const filterByMostRecent = () => {
     dispatch({
       type: FILTER_MOST_RECENT,
@@ -111,12 +121,17 @@ const useLaunchData = () => {
       //  payload: { launches: state.launches }
     })
   }
-  const fetchLaunches = async () => {
+  // useCallback to prevent uncessary renders based on callback function identity
+  const fetchLaunches = useCallback(async () => {
     const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
     dispatch({
       type: FETCH_DATA,
-      payload: { launches: data },
+      payload: { launches: data, loading: true },
     })
+  }, [dispatch])
+
+  const filterByAll = () => {
+    dispatch({ type: FILTER_ALL, payload: { launches: state.launches } })
   }
 
   return {
@@ -125,6 +140,7 @@ const useLaunchData = () => {
       filterByMostRecent,
       filterByFailure,
       filterBySuccess,
+      filterByAll,
     },
     fetchLaunches,
   }
