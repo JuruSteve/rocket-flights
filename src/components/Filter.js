@@ -1,9 +1,9 @@
 import React from "react"
-import styled from "styled-components"
+import { FilterWrapper } from "../elements"
 
-const Filter = ({ filters }) => {
+export const Filter = ({ filters }) => {
   return (
-    <FilterOptions>
+    <FilterWrapper>
       <p>Filters:</p>
       <ul>
         <li>
@@ -24,30 +24,6 @@ const Filter = ({ filters }) => {
           </button>
         </li>
       </ul>
-    </FilterOptions>
+    </FilterWrapper>
   )
 }
-
-export default Filter
-
-const FilterOptions = styled.div`
-  display: flex;
-  flex-basis: 1;
-  justify-content: space-around;
-  p {
-    margin: 0;
-  }
-  ul {
-    display: flex;
-    flex-direction: row;
-    margin: 0;
-    list-style-type: none;
-    li {
-      margin-left: 2em;
-      button {
-        background-color: #2c3261;
-        color: white;
-      }
-    }
-  }
-`

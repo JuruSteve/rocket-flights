@@ -1,12 +1,12 @@
 import React from "react"
-import styled from "styled-components"
+import { LaunchWrapper } from "../elements"
 import { Link } from "gatsby"
 
-const RocketLaunch = ({ launch }) => {
+export const Flight = ({ launch }) => {
   return (
     <li>
       <Link to={`/flight/${launch.mission_name}`} state={{ flight: launch }}>
-        <Launch>
+        <LaunchWrapper>
           <img src={`${launch.links.mission_patch_small}`} alt="" />
           <figcaption>
             <h3>{launch.mission_name}</h3>
@@ -32,41 +32,8 @@ const RocketLaunch = ({ launch }) => {
             </p>
             <h6>Details</h6>
           </figcaption>
-        </Launch>
+        </LaunchWrapper>
       </Link>
     </li>
   )
 }
-
-const Launch = styled.figure`
-  display: flex;
-  justify-content: flex-start;
-  background-color: #afb6cb99;
-  &:hover {
-    box-shadow: 0px 1.5px 4px 0.2px #6633994a;
-  }
-  figcaption {
-    background-color: white;
-    width: 60%;
-    padding: 2em;
-    .launch-status {
-      display: inline-block;
-    }
-    .launch-success {
-      color: green;
-      font-weight: 400;
-      /* width: 20px;
-            height: 20px; */
-    }
-    .launch-failure {
-      /* background-color: red; */
-      color: red;
-      p {
-        font-weight: 500;
-      }
-      /* width: 20px;
-            height: 20px; */
-    }
-  }
-`
-export default RocketLaunch

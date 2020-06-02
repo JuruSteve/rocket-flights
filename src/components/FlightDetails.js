@@ -1,20 +1,20 @@
 import React from "react"
-import styled from "styled-components"
+import { FlightDetailsWrapper, Details, FlightImage, Stats } from "../elements"
 import { Link } from "gatsby"
 
-const FlightDetails = ({ location }) => {
+export const FlightDetails = ({ location }) => {
   const flight = location.state && location.state.flight
   return (
     <div>
       {flight && (
-        <MissionSummary>
+        <FlightDetailsWrapper>
           {/* <button onClick={() => navigate("/")}>Back</button> */}
           <Link to="/">Back</Link>
           <h1>{flight.mission_name}</h1>
           <h3>
             <em>{flight.details}</em>
           </h3>
-        </MissionSummary>
+        </FlightDetailsWrapper>
       )}
 
       {flight && (
@@ -54,44 +54,3 @@ const FlightDetails = ({ location }) => {
     </div>
   )
 }
-
-const Details = styled.div`
-  display: flex;
-  justify-content: space-between;
-  box-shadow: 1px 2px 10px 1px rebeccapurple;
-  padding: 30px 10px 10px 10px;
-`
-const FlightImage = styled.div`
-  width: 45%;
-`
-
-const Stats = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 45%;
-  .status-success {
-    strong {
-      color: green;
-    }
-  }
-  .status-failure {
-    strong {
-      color: red;
-    }
-  }
-`
-const MissionSummary = styled.div`
-  h1 {
-    margin-top: 35px;
-  }
-  button {
-    display: block;
-    padding: 2px 30px;
-    background-color: lavender;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 500;
-    color: black;
-  }
-`
-export default FlightDetails
