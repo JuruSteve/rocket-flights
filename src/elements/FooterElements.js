@@ -3,7 +3,7 @@ import styled from "styled-components"
 export const FooterWrapper = styled.footer`
   min-height: 20vh;
   max-width: 960;
-  background-color: rebeccapurple;
+  background-color: #2d2d38;
   color: white;
   .content {
     max-width: 960px;

@@ -4,7 +4,7 @@ import { FilterWrapper } from "../elements"
 export const Filter = ({ filters }) => {
   return (
     <FilterWrapper>
-      <p>Filters:</p>
+      <p>Filter by:</p>
       <ul>
         <li>
           <button onClick={filters.filterByAll}>All</button>

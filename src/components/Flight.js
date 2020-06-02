@@ -1,13 +1,16 @@
 import React from "react"
-import { LaunchWrapper } from "../elements"
+import { FlightWrapper, FlightCard } from "../elements"
 import { Link } from "gatsby"
 
 export const Flight = ({ launch }) => {
   return (
-    <li>
+    <FlightCard>
       <Link to={`/flight/${launch.mission_name}`} state={{ flight: launch }}>
-        <LaunchWrapper>
-          <img src={`${launch.links.mission_patch_small}`} alt="" />
+        <FlightWrapper>
+          <div className="img-container">
+            <img src={`${launch.links.mission_patch_small}`} alt="" />
+          </div>
+
           <figcaption>
             <h3>{launch.mission_name}</h3>
             <div>
@@ -32,8 +35,8 @@ export const Flight = ({ launch }) => {
             </p>
             <h6>Details</h6>
           </figcaption>
-        </LaunchWrapper>
+        </FlightWrapper>
       </Link>
-    </li>
+    </FlightCard>
   )
 }

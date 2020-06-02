@@ -1,16 +1,26 @@
 import styled from "styled-components"
 
-export const LaunchWrapper = styled.figure`
+export const FlightWrapper = styled.figure`
   display: flex;
-  justify-content: flex-start;
-  background-color: #afb6cb99;
+  flex-direction: column;
+  align-items: center;
+  background-color: #2d2d38;
+  box-shadow: 0px 1.5px 4px 0.2px #6633994a;
+  transition: all 0.3s ease 0s;
+  border-radius: 5px;
+  overflow: hidden;
   &:hover {
-    box-shadow: 0px 1.5px 4px 0.2px #6633994a;
+    transform: translateY(-5px);
   }
+
+  .img-container img {
+    padding: 10px 0;
+  }
+
   figcaption {
     background-color: white;
-    width: 60%;
-    padding: 2em;
+    padding: 20px;
+    width: 100%;
     .launch-status {
       display: inline-block;
     }
@@ -30,4 +40,11 @@ export const LaunchWrapper = styled.figure`
             height: 20px; */
     }
   }
+`
+
+export const FlightCard = styled.li`
+  grid-column-end: span 4;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease 0s;
 `
