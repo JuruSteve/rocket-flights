@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Router, navigate } from "@reach/router"
 import { FlightDetails } from "../components"
-import Layout from "../components/Layout"
+import Layout from "../components/layout"
 
 const BounceToHome = () => {
   useEffect(() => {
