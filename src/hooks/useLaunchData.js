@@ -86,14 +86,10 @@ const launchReducer = (state, { type, payload }) => {
   }
 }
 
-const LaunchesContextProvider = ({ children }) => (
+export const LaunchesContextProvider = ({ children }) => (
   <LaunchesContext.Provider value={useReducer(launchReducer, InitialState)}>
     {children}
   </LaunchesContext.Provider>
-)
-
-export const wrapRootElement = ({ element }) => (
-  <LaunchesContextProvider>{element}</LaunchesContextProvider>
 )
 
 const useLaunchData = () => {
