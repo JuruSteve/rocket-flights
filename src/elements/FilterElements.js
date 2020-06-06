@@ -33,7 +33,16 @@ export const FilterWrapper = styled.div`
         background-color: white;
         color: black;
         border-radius: 5px;
-        padding: 10px;
+        border-color: none;
+        padding: 6px 10px;
+        background: #6633990d;
+        transition: background-color 0.3s ease;
+        &:hover,
+        &:focus {
+          outline: none;
+          background-color: #ffffff;
+          /* border: #6633990d; */
+        }
         @media ${props => props.theme.breakpoints.mobile} {
           padding: 5px;
         }
