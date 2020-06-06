@@ -4,7 +4,6 @@ import React, {
   createContext,
   useCallback,
 } from "react"
-import axios from "axios"
 
 // action types
 const FETCH_DATA = "fetch_data"
@@ -118,13 +117,15 @@ const useLaunchData = () => {
     })
   }
   // useCallback to prevent uncessary renders based on callback function identity
-  const fetchLaunches = useCallback(async () => {
-    const { data } = await axios.get("https://api.spacexdata.com/v3/launches")
-    dispatch({
-      type: FETCH_DATA,
-      payload: { launches: data, loading: true },
-    })
-  }, [dispatch])
+  const fetchLaunches = useCallback(
+    async launchList => {
+      dispatch({
+        type: FETCH_DATA,
+        payload: { launches: launchList, loading: true },
+      })
+    },
+    [dispatch]
+  )
 
   const filterByAll = () => {
     dispatch({ type: FILTER_ALL, payload: { launches: state.launches } })
