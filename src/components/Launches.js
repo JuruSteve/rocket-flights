@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import useLaunchData from "../hooks/useLaunchData"
 import Loader from "react-loader"
 import { Flight, Filter } from "../components"
-import { LaunchListWrapper } from "../elements"
+import { LaunchListWrapper, LaunchList } from "../elements"
 
 export const Launches = () => {
   const { state, fetchLaunches, filters } = useLaunchData()
@@ -14,7 +14,7 @@ export const Launches = () => {
   return (
     <LaunchListWrapper>
       <Filter filters={filters} />
-      <ul className="launch-list">
+      <LaunchList>
         {typeof state !== "undefined" && state.filteredLaunches.length > 0 ? (
           state.filteredLaunches.map((launch, i) => {
             return <Flight key={i} launch={launch}></Flight>
@@ -22,7 +22,7 @@ export const Launches = () => {
         ) : (
           <Loader loaded={typeof state !== "undefined" && state.loading} />
         )}
-      </ul>
+      </LaunchList>
     </LaunchListWrapper>
   )
 }

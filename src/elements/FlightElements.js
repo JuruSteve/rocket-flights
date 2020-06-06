@@ -15,6 +15,7 @@ export const FlightWrapper = styled.figure`
 
   .img-container img {
     padding: 10px 0;
+    height: 276px;
   }
 
   figcaption {
@@ -27,17 +28,12 @@ export const FlightWrapper = styled.figure`
     .launch-success {
       color: green;
       font-weight: 400;
-      /* width: 20px;
-            height: 20px; */
     }
     .launch-failure {
-      /* background-color: red; */
       color: red;
       p {
         font-weight: 500;
       }
-      /* width: 20px;
-            height: 20px; */
     }
   }
 `
@@ -47,4 +43,16 @@ export const FlightCard = styled.li`
   width: 100%;
   cursor: pointer;
   transition: all 0.3s ease 0s;
+
+  @media ${props => props.theme.breakpoints.desktop} {
+    grid-column-end: span 6;
+  }
+
+  @media ${props => props.theme.breakpoints.tablet} {
+    grid-column-end: span 12;
+  }
+
+  @media ${props => props.theme.breakpoints.mobile} {
+    grid-column-end: span 6;
+  }
 `

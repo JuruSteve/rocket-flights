@@ -15,12 +15,12 @@ const Layout = ({ children }) => {
     }
   `)
   return (
-    <>
+    <div className="layout">
       <GlobalStyles />
       <Header siteTitle={data.site.siteMetadata.title} />
       <ContainerWrapper>{children}</ContainerWrapper>
       <Footer />
-    </>
+    </div>
   )
 }
 

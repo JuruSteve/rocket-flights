@@ -12,6 +12,6 @@ export const FooterWrapper = styled.footer`
   }
   a {
     text-decoration: none;
-    color: #ff8c8c;
+    color: #ffffff;
   }
 `

@@ -33,7 +33,6 @@ export const Flight = ({ launch }) => {
                 {new Date(`${launch.launch_date_local}`).toDateString()}
               </strong>
             </p>
-            <h6>Details</h6>
           </figcaption>
         </FlightWrapper>
       </Link>

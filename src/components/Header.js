@@ -14,13 +14,14 @@ export const Header = ({ siteTitle }) => (
         margin: `0 auto`,
         maxWidth: 1175,
         padding: `1.45rem 1.0875rem`,
+        fontWeight: `bolder`,
       }}
     >
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"
           style={{
-            color: `#48D1CC`,
+            color: `#ffffff`,
             textDecoration: `none`,
             fontSize: `1.5rem`,
           }}
