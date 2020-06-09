@@ -1,6 +1,3 @@
-const fetch = require("node-fetch")
-const paginate = require("gatsby-awesome-pagination").paginate
-
 exports.onCreatePage = ({ page, actions }) => {
   if (page.path.match(/^\/flight/)) {
     page.matchPath = "/flight/*"
@@ -21,13 +18,13 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `)
-  // const res = await fetch("https://api.spacexdata.com/v3/launches")
-  // const udata = await res.json()
+
   const launchesPerPage = 12
   const totalPages = Math.ceil(
     data.allSpacexApiLaunches.edges &&
       data.allSpacexApiLaunches.edges.length / launchesPerPage
   )
+  // Create Launches page
   Array.from({ length: totalPages }).forEach((_, i) => {
     actions.createPage({
       path: i == 0 ? `/` : `/${i + 1}`,

@@ -5,7 +5,7 @@ import { Link } from "gatsby"
 export const Flight = ({ launch }) => {
   return (
     <FlightCard>
-      <Link to={`/flight/${launch.mission_name}`} state={{ flight: launch }}>
+      <Link to={`/${launch.mission_name}`} state={{ flight: launch }}>
         <FlightWrapper>
           <div className="img-container">
             <img src={`${launch.links.mission_patch_small}`} alt="" />

@@ -1,41 +1,85 @@
 import React from "react"
-import { FlightWrapper, FlightCard } from "../elements"
-import { Link } from "gatsby"
+import { graphql } from "gatsby"
+import Layout from "../components/layout"
+import {
+  FlightDetailsWrapper,
+  FlightDetailsContent,
+  FlightImage,
+  BackButton,
+  Details,
+  Stats,
+} from "../elements"
 
-export const Flight = ({ launch }) => {
+const Flight = ({ data }) => {
+  const flight = data.spacexApiLaunches
   return (
-    <FlightCard>
-      <Link to={`/flight/${launch.mission_name}`} state={{ flight: launch }}>
-        <FlightWrapper>
-          <div className="img-container">
-            <img src={`${launch.links.mission_patch_small}`} alt="" />
-          </div>
-
-          <figcaption>
-            <h3>{launch.mission_name}</h3>
-            <div>
-              Mission status:{" "}
-              <div
-                className={`launch-status ${
-                  launch.launch_success ? "launch-success" : "launch-failure"
+    <Layout>
+      <FlightDetailsWrapper>
+        <FlightDetailsContent>
+          <BackButton to="/">&larr; Back</BackButton>
+          <h1>{flight.mission_name}</h1>
+          <h3>
+            <em>{flight.details}</em>
+          </h3>
+          <Details className="flightDetails">
+            <FlightImage>
+              <img
+                src={`${flight.links && flight.links.mission_patch_small}`}
+                alt="Mission Patch"
+              />
+            </FlightImage>
+            <Stats>
+              <p className="launch-year">
+                Rocket:
+                <strong>
+                  {` ${flight.rocket.rocket_name} / ${flight.rocket.rocket_type}`}
+                </strong>
+              </p>
+              <p
+                className={`status-${
+                  flight.launch_success ? "success" : "failure"
                 }`}
               >
-                <p>
-                  <strong>
-                    {launch.launch_success ? "Success" : "Failure"}
-                  </strong>
-                </p>
-              </div>
-            </div>
-            <p>
-              Launched{" "}
-              <strong>
-                {new Date(`${launch.launch_date_local}`).toDateString()}
-              </strong>
-            </p>
-          </figcaption>
-        </FlightWrapper>
-      </Link>
-    </FlightCard>
+                Mission status:
+                <strong>
+                  {flight.launch_success ? " Success" : " Failure"}
+                </strong>
+              </p>
+              <p className="launch-year">
+                Launch Date:
+                <strong> {flight.launch_date_local}</strong>
+              </p>
+              <p className="launch-year">
+                Launch Site:
+                <strong> {flight.launch_site.site_name_long}</strong>
+              </p>
+            </Stats>
+          </Details>
+        </FlightDetailsContent>
+      </FlightDetailsWrapper>
+    </Layout>
   )
 }
+
+export default Flight
+
+export const pageQuery = graphql`
+  query($id: String!) {
+    spacexApiLaunches(id: { eq: $id }) {
+      mission_name
+      launch_success
+      details
+      launch_site {
+        site_name_long
+      }
+      links {
+        mission_patch_small
+      }
+      launch_date_local(formatString: "MMMM DD, YYYY")
+      rocket {
+        rocket_name
+        rocket_type
+      }
+    }
+  }
+`

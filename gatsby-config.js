@@ -13,7 +13,6 @@ module.exports = {
         path: `${__dirname}/src/images`,
       },
     },
-    `gatsby-awesome-pagination`,
     {
       resolve: `gatsby-source-spacex-api`,
       options: {
