@@ -9,18 +9,19 @@ import {
   Details,
   Stats,
 } from "../elements"
+import SEO from "../components/seo"
+import "normalize.css"
 
 const Flight = ({ data }) => {
   const flight = data.spacexApiLaunches
   return (
     <Layout>
+      <SEO title={`${flight.mission_name}`} />
       <FlightDetailsWrapper>
         <FlightDetailsContent>
           <BackButton to="/">&larr; Back</BackButton>
           <h1>{flight.mission_name}</h1>
-          <h3>
-            <em>{flight.details}</em>
-          </h3>
+          <h3>{flight.details}</h3>
           <Details className="flightDetails">
             <FlightImage>
               <img

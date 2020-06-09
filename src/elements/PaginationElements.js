@@ -8,7 +8,12 @@ export const PaginationWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-
+  a {
+    padding: 10px 20px;
+    background: #efedf2;
+    margin: 10px;
+    border-radius: 5px;
+  }
   a:nth-child(1) {
     color: ${props =>
       props.isFirst ? props.theme.colors.dark3 : props.theme.colors.dark1};

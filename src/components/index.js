@@ -1,5 +1,4 @@
 export * from "./Header"
-export * from "./Launches"
 export * from "./Flight"
 export * from "./FlightDetails"
 export * from "./Filter"

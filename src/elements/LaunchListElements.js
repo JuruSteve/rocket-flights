@@ -34,7 +34,7 @@ export const LaunchList = styled.ul`
   grid-gap: 2.5rem;
   margin: 0px 0px 20px 0px;
   padding: ${props =>
-    `${props.theme.spacing.xLarge} ${props.theme.spacing.xxLarge}`};
+    `${props.theme.spacing.small} ${props.theme.spacing.xxLarge}`};
   list-style-type: none;
   @media ${props => props.theme.breakpoints.tablet} {
     grid-column: 2 / span 6;

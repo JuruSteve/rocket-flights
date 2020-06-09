@@ -1,40 +1,16 @@
 import React, { useReducer } from "react"
 import { graphql } from "gatsby"
 import Loader from "react-loader"
+import Layout from "../components/layout"
 import { Flight, Filter, Pagination } from "../components"
 import { LaunchListWrapper, LaunchList } from "../elements"
-import Layout from "../components/layout"
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "all":
-      return {
-        ...state,
-        filteredLaunches: state.launches.allLaunches.edges,
-      }
-    case "success":
-      return {
-        ...state,
-        filteredLaunches: state.launches.success.edges,
-      }
-    case "failure":
-      return {
-        ...state,
-        filteredLaunches: state.launches.failure.edges,
-      }
-    case "most-recent":
-      return {
-        ...state,
-        filteredLaunches: state.launches.mostRecent.edges,
-      }
-    default:
-      return { ...state, filteredLaunches: state.filteredLaunches.edges }
-  }
-}
+import { launchReducer } from "../reducers"
+import SEO from "../components/seo"
+import "normalize.css"
 
 const AllLaunches = ({ pageContext, data }) => {
   const { currentPage, launchesPerPage } = pageContext
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(launchReducer, {
     launches: data,
     filteredLaunches: data.allLaunches.edges,
   })
@@ -48,6 +24,7 @@ const AllLaunches = ({ pageContext, data }) => {
 
   return (
     <Layout>
+      <SEO title="Launches" />
       <LaunchListWrapper>
         <Filter dispatch={dispatch} />
         <Pagination
@@ -57,7 +34,7 @@ const AllLaunches = ({ pageContext, data }) => {
           nextPage={nextPage}
         />
         <LaunchList>
-          {launches ? (
+          {launches.length > 0 ? (
             launches.map((launch, i) => {
               let launchItem = launch.node
               return <Flight key={i} launch={launchItem}></Flight>
@@ -66,6 +43,12 @@ const AllLaunches = ({ pageContext, data }) => {
             <Loader loaded={typeof launches !== "undefined"} />
           )}
         </LaunchList>
+        <Pagination
+          isFirst={isFirst}
+          isLast={isLast}
+          prevPage={prevPage}
+          nextPage={nextPage}
+        />
       </LaunchListWrapper>
     </Layout>
   )

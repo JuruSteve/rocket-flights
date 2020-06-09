@@ -35,11 +35,14 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-styled-components`,
+      resolve: `gatsby-plugin-google-fonts`,
       options: {
-        // Add any options here
+        fonts: [`roboto mono`, `muli\:400,400i,700,700i`],
+        display: `swap`,
       },
     },
+    `gatsby-plugin-styled-components`,
+
     {
       resolve: "gatsby-plugin-web-font-loader",
       options: {

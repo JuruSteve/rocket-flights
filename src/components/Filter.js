@@ -1,29 +1,27 @@
 import React from "react"
-import { graphql, StaticQuery } from "gatsby"
 import { FilterWrapper } from "../elements"
-import AllLaunches from "../templates/allLaunches"
-
+import { ALL, MOST_RECENT, SUCCESS, FAILURE } from "../reducers"
 export const Filter = ({ dispatch }) => {
   return (
     <FilterWrapper>
-      <p>Filter by:</p>
+      <p>Filter:</p>
       <ul>
         <li>
-          <button onClick={() => dispatch({ type: "all" })}>All</button>
+          <button onClick={() => dispatch({ type: ALL })}>All</button>
         </li>
         <li>
-          <button onClick={() => dispatch({ type: "success" })}>Success</button>
-        </li>
-        <li>
-          <button onClick={() => dispatch({ type: "failure" })}>Failure</button>
+          <button onClick={() => dispatch({ type: SUCCESS })}>Success</button>
         </li>
         <li>
           <button
             className="most-recent"
-            onClick={() => dispatch({ type: "most-recent" })}
+            onClick={() => dispatch({ type: MOST_RECENT })}
           >
             Most Recent
           </button>
+        </li>
+        <li>
+          <button onClick={() => dispatch({ type: FAILURE })}>Failed</button>
         </li>
       </ul>
     </FilterWrapper>
