@@ -5,6 +5,8 @@ html, body {
   font-family: ${props => props.theme.fonts.main};
   height: 100%;
   background-color: ${props => props.theme.colors.light1};
+  margin: 0;
+  padding: 0;
   /* font-family: sans-serif;
   font-family: "Noto Sans KR", sans-serif; */
   -ms-text-size-adjust: 100%;
