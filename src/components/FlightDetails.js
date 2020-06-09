@@ -16,9 +16,7 @@ export const FlightDetails = ({ location }) => {
         <FlightDetailsContent>
           <BackButton to="/">&larr; Back</BackButton>
           <h1>{flight.mission_name}</h1>
-          <h3>
-            <em>{flight.details}</em>
-          </h3>
+          <h4>{flight.details}</h4>
           <Details className="flightDetails">
             <FlightImage>
               <img

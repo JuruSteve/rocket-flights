@@ -2,7 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { Header, Footer } from "."
-import { GlobalStyles, ContainerWrapper } from "../elements"
+import { ContainerWrapper, GlobalStyles } from "../elements"
+import "normalize.css"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
