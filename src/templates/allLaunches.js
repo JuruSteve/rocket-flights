@@ -6,7 +6,6 @@ import { Flight, Filter, Pagination } from "../components"
 import { LaunchListWrapper, LaunchList } from "../elements"
 import { launchReducer } from "../reducers"
 import SEO from "../components/seo"
-import "normalize.css"
 
 const AllLaunches = ({ pageContext, data }) => {
   const { currentPage, launchesPerPage } = pageContext

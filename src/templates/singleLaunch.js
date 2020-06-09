@@ -10,7 +10,6 @@ import {
   Stats,
 } from "../elements"
 import SEO from "../components/seo"
-import "normalize.css"
 
 const Flight = ({ data }) => {
   const flight = data.spacexApiLaunches
