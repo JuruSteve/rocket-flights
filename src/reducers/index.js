@@ -16,6 +16,7 @@ export const launchReducer = (state, action) => {
         filteredLaunches: state.launches.success.edges,
       }
     case FAILURE:
+      console.log(state.launches.failure.edges)
       return {
         ...state,
         filteredLaunches: state.launches.failure.edges,

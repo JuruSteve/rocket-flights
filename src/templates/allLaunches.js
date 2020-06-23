@@ -9,7 +9,7 @@ import SEO from "../components/seo"
 import "normalize.css"
 
 const AllLaunches = ({ pageContext, data }) => {
-  const { currentPage, launchesPerPage } = pageContext
+  const { currentPage, launchesPerPage, home } = pageContext
   const [state, dispatch] = useReducer(launchReducer, {
     launches: data,
     filteredLaunches: data.allLaunches.edges,
@@ -26,7 +26,7 @@ const AllLaunches = ({ pageContext, data }) => {
     <Layout>
       <SEO title="Launches" />
       <LaunchListWrapper>
-        <Filter dispatch={dispatch} />
+        <Filter dispatch={dispatch} homePage={home} />
         <Pagination
           isFirst={isFirst}
           isLast={isLast}
@@ -85,8 +85,8 @@ export const pageQuery = graphql`
       }
     }
     failure: allSpacexApiLaunches(
-      skip: $skip
-      limit: $limit
+      # skip: $skip
+      # limit: $limit
       filter: { launch_success: { eq: false } }
     ) {
       edges {

@@ -8,7 +8,7 @@ export const Footer = () => (
         Courtesy of {""}
         <strong>
           <a
-            href="https://api.spacexdata.com"
+            href="https://api.spacexdata.com/v3"
             target="_blank"
             rel="noopener noreferrer"
           >
