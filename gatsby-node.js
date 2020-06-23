@@ -34,6 +34,7 @@ exports.createPages = async ({ actions, graphql }) => {
         limit: launchesPerPage,
         launchesPerPage,
         currentPage: i + 1,
+        home: i == 0 ? `/` : `/`,
       },
     })
   })
